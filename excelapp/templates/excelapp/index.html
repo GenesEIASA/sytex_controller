@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Navigation</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Container for buttons and content */
+        .tab-container {
+            display: flex;
+        }
+        /* Styles for buttons */
+        .tab-buttons {
+            display: flex;
+            flex-direction: column;
+        }
+        .tab-button {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .tab-button:hover {
+            background-color: #ddd;
+        }
+        /* Styles for content sections */
+        .tab-content {
+            flex-grow: 1;
+            padding: 20px;
+            border-left: 1px solid #ccc;
+            display: none;
+        }
+        /* Active content section */
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // Open the first tab by default
+        window.onload = function() {
+            document.getElementsByClassName("tab-button")[0].click();
+        }
+    </script>
+</head>
+<body>
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab(event, 'Tab1')">Entrada Equipos</button>
+            <button class="tab-button" onclick="openTab(event, 'Tab2')">Revision seriales</button>
+            <button class="tab-button" onclick="openTab(event, 'Tab3')">Equipos Devolucion Retiro</button>
+        </div>
+        <div id="Tab1" class="tab-content">
+            <h2>Tab 1 Content</h2>
+            <p>This is the content for Tab 1.</p>
+        </div>
+        <div id="Tab2" class="tab-content">
+            <h2>Tab 2 Content</h2>
+            <p>This is the content for Tab 2.</p>
+        </div>
+        <div id="Tab3" class="tab-content">
+            <h2>Pestaña de Retiro o Devoluciones de equipos</h2>
+            <p>Abjunte el archivo correspondiente para procesar</p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Subir</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

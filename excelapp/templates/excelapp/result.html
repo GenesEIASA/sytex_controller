@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultados del procesamiento</title>
+</head>
+<body>
+    <h2>Resultados del procesamiento del archivo Excel</h2>
+    <div>
+        {{ table|safe }}
+    </div>
+    <form action="{% url 'index' %}" method="get">
+        <button type="submit">Volver a subir otro archivo</button>
+    </form>
+</body>
+</html>
